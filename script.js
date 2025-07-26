@@ -1,8 +1,17 @@
 // --- 1. CONFIGURACIÓN GLOBAL ---
 const ADVISORS = {
-    'daniel': { name: 'Daniel Agudelo', photoUrl: 'https://i.imgur.com/L5zKVxT.png', defaultWhatsapp: '573147294382' },
-    'katherine': { name: 'Katherine Lopera', photoUrl: 'https://i.imgur.com/21GKFPV.png', defaultWhatsapp: '573109876543' }
+    'katherine_rueda': { name: 'Katherine Rueda', photoUrl: 'https://i.imgur.com/21GKFPV.png', defaultWhatsapp: '573249450254' },
+    'yonder_gonzalez': { name: 'Yonder Gonzalez', photoUrl: 'https://i.imgur.com/IPWYtIU.jpeg', defaultWhatsapp: '573508917512' },
+    'juan_madrid': { name: 'Juan David Madrid', photoUrl: 'https://i.imgur.com/Oanbam8.jpeg', defaultWhatsapp: '573145352537' },
+    'valentina_herrera': { name: 'Valentina Herrera', photoUrl: 'https://i.imgur.com/7B7V6e8.png', defaultWhatsapp: '573184188621' },
+    'maryory_gonzalez': { name: 'Maryory Gonzalez', photoUrl: 'https://i.imgur.com/G9nHKlg.jpeg', defaultWhatsapp: '573189150322' },
+    'margareth_saucedo': { name: 'Margareth Saucedo', photoUrl: 'https://i.imgur.com/peBTIni.jpeg', defaultWhatsapp: '573502687290' },
+    'karen_giraldo': { name: 'Karen Giraldo', photoUrl: 'https://i.imgur.com/Amn1Wtb.jpeg', defaultWhatsapp: '573216839241' },
+    'sofia_giraldo': { name: 'Sofia Giraldo', photoUrl: 'https://i.imgur.com/mt1UKBS.jpeg', defaultWhatsapp: '573113854751' },
+    'nicol_tamayo': { name: 'Nicol Tamayo', photoUrl: 'https://i.imgur.com/7pg3HvF.jpeg', defaultWhatsapp: '' },
+    'sarah_esteves': { name: 'Sarah George Esteves', photoUrl: 'https://i.imgur.com/mt1UKBS.jpeg', defaultWhatsapp: '573226817507' }
 };
+
 const ICONS = {
     destination: '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>',
     calendar: '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>',
