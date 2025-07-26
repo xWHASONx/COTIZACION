@@ -3,12 +3,13 @@ const ADVISORS = {
     'katherine_rueda': { name: 'Katherine Rueda', photoUrl: 'https://i.imgur.com/21GKFPV.png', defaultWhatsapp: '573249450254' },
     'yonder_gonzalez': { name: 'Yonder Gonzalez', photoUrl: 'https://i.imgur.com/IPWYtIU.jpeg', defaultWhatsapp: '573508917512' },
     'juan_madrid': { name: 'Juan David Madrid', photoUrl: 'https://i.imgur.com/Oanbam8.jpeg', defaultWhatsapp: '573145352537' },
-    'valentina_herrera': { name: 'Valentina Herrera', photoUrl: 'https://i.imgur.com/7B7V6e8.png', defaultWhatsapp: '573184188621' },
+    'valentina_herrera': { name: 'Valentina Herrera', photoUrl: 'https://i.imgur.com/MHGZASr.png', defaultWhatsapp: '573184188621' },
     'maryory_gonzalez': { name: 'Maryory Gonzalez', photoUrl: 'https://i.imgur.com/G9nHKlg.jpeg', defaultWhatsapp: '573189150322' },
     'margareth_saucedo': { name: 'Margareth Saucedo', photoUrl: 'https://i.imgur.com/peBTIni.jpeg', defaultWhatsapp: '573502687290' },
     'karen_giraldo': { name: 'Karen Giraldo', photoUrl: 'https://i.imgur.com/Amn1Wtb.jpeg', defaultWhatsapp: '573216839241' },
     'sofia_giraldo': { name: 'Sofia Giraldo', photoUrl: 'https://i.imgur.com/mt1UKBS.jpeg', defaultWhatsapp: '573113854751' },
     'nicol_tamayo': { name: 'Nicol Tamayo', photoUrl: 'https://i.imgur.com/7pg3HvF.jpeg', defaultWhatsapp: '' },
+    'daniela_cardona': { name: 'Daniela Cardona', photoUrl: 'https://i.imgur.com/MHGZASr.png', defaultWhatsapp: '' },
     'sarah_esteves': { name: 'Sarah George Esteves', photoUrl: 'https://i.imgur.com/mt1UKBS.jpeg', defaultWhatsapp: '573226817507' }
 };
 
