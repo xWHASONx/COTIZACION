@@ -7,7 +7,7 @@ const ADVISORS = {
     'maryory_gonzalez': { name: 'Maryory Gonzalez', photoUrl: 'https://i.imgur.com/G9nHKlg.jpeg', defaultWhatsapp: '573189150322' },
     'margareth_saucedo': { name: 'Margareth Saucedo', photoUrl: 'https://i.imgur.com/peBTIni.jpeg', defaultWhatsapp: '573502687290' },
     'karen_giraldo': { name: 'Karen Giraldo', photoUrl: 'https://i.imgur.com/Amn1Wtb.jpeg', defaultWhatsapp: '573216839241' },
-    'sofia_giraldo': { name: 'Sofia Giraldo', photoUrl: 'https://i.imgur.com/mt1UKBS.jpeg', defaultWhatsapp: '573113854751' },
+    'sofia_giraldo': { name: 'Sofia Giraldo', photoUrl: 'https://i.imgur.com/GMOLJxa.jpeg', defaultWhatsapp: '573113854751' },
     'nicol_tamayo': { name: 'Nicol Tamayo', photoUrl: 'https://i.imgur.com/7pg3HvF.jpeg', defaultWhatsapp: '' },
     'daniela_cardona': { name: 'Daniela Cardona', photoUrl: 'https://i.imgur.com/MHGZASr.png', defaultWhatsapp: '' },
     'sarah_esteves': { name: 'Sarah George Esteves', photoUrl: 'https://i.imgur.com/mt1UKBS.jpeg', defaultWhatsapp: '573226817507' }
