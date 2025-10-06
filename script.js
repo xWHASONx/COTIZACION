@@ -267,9 +267,9 @@ if (document.getElementById('hotel-1-form-wrapper')) {
 
         // Lógica para T&C dinámicos
         let termsHTML = '';
-        if (document.getElementById('hotel-1-form-wrapper')) termsHTML += .hotels;
-        if (document.getElementById('flights-form-wrapper')) termsHTML += .flights;
-        if (document.getElementById('transfers-form-wrapper')) termsHTML += .transfers;
+    if (document.getElementById('hotel-1-form-wrapper')) termsHTML += TERMS_AND_CONDITIONS.hotels;
+    if (document.getElementById('flights-form-wrapper')) termsHTML += TERMS_AND_CONDITIONS.flights;
+    if (document.getElementById('transfers-form-wrapper')) termsHTML += TERMS_AND_CONDITIONS.transfers;
         
         const termsContainer = document.getElementById('terms-section-confirm');
         if (termsHTML) {
