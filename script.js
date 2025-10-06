@@ -56,6 +56,14 @@ const TERMS_AND_CONDITIONS = {
     `
 };
 
+const REGIMEN_TEMPLATES = {
+    'todo_incluido': `Alojamiento en habitación estándar.\nDesayunos, almuerzos y cenas tipo buffet.\nSnacks entre comidas.\nBebidas alcohólicas y no alcohólicas nacionales ilimitadas.`,
+    'pension_completa': `Alojamiento en habitación estándar.\nDesayuno, almuerzo y cena.\nNo incluye bebidas en las comidas.`,
+    'media_pension': `Alojamiento en habitación estándar.\nDesayuno y cena.\nNo incluye bebidas en la cena.`,
+    'desayuno': `Alojamiento en habitación estándar.\nDesayuno tipo buffet.`,
+    'solo_hotel': `Alojamiento en habitación estándar.\nNo incluye comidas ni bebidas.`
+};
+
 let pastedImages = {};
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -259,9 +267,9 @@ if (document.getElementById('hotel-1-form-wrapper')) {
 
         // Lógica para T&C dinámicos
         let termsHTML = '';
-        if (document.getElementById('hotel-1-form-wrapper')) termsHTML += TERMS_AND_CONDITIONS.hotels;
-        if (document.getElementById('flights-form-wrapper')) termsHTML += TERMS_AND_CONDITIONS.flights;
-        if (document.getElementById('transfers-form-wrapper')) termsHTML += TERMS_AND_CONDITIONS.transfers;
+        if (document.getElementById('hotel-1-form-wrapper')) termsHTML += .hotels;
+        if (document.getElementById('flights-form-wrapper')) termsHTML += .flights;
+        if (document.getElementById('transfers-form-wrapper')) termsHTML += .transfers;
         
         const termsContainer = document.getElementById('terms-section-confirm');
         if (termsHTML) {
