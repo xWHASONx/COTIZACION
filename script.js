@@ -224,31 +224,24 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         confirmationComponentsContainer.innerHTML = '';
-        
-        [1, 2].forEach(num => {
-            if (document.getElementById(`hotel-${num}-form-wrapper`)) {
-                let galleryHTML = [1, 2, 3].map(i => pastedImages[`hotel-${num}-foto-${i}`] ? `<img src="${pastedImages[`hotel-${num}-foto-${i}`]}">` : '').join('');
-                let hotelDetailsHTML = (num === 1) ? `
-                    <div class="data-item">${ICONS.destination}<div class="data-item-content"><strong>Destino:</strong><p>${document.getElementById('destino').value}</p></div></div>
-                    <div class="data-item">${ICONS.calendar}<div class="data-item-content"><strong>Fechas:</strong><p>${formatDate(document.getElementById('fecha-viaje').value)}</p></div></div>
-                    <div class="data-item">${ICONS.moon}<div class="data-item-content"><strong>Noches:</strong><p>${document.getElementById('cantidad-noches').options[document.getElementById('cantidad-noches').selectedIndex].text}</p></div></div>
-                    <div class="data-item">${ICONS.bed}<div class="data-item-content"><strong>Habitaciones:</strong><p>${document.getElementById('cantidad-habitaciones').options[document.getElementById('cantidad-habitaciones').selectedIndex].text}</p></div></div>` : '';
 
-                confirmationComponentsContainer.innerHTML += `<div class="quote-option-box"><div class="option-header"><h3>Hotel (Opción ${num})</h3><span class="option-price">${formatCurrency(document.getElementById(`valor-total-${num}`).value, document.getElementById(`moneda-${num}`).value)}</span></div><div class="option-body"><h4>${document.getElementById(`hotel-${num}`).value}</h4><div class="photo-gallery">${galleryHTML || '<p>No se añadieron imágenes.</p>'}</div><div class="details-grid">${hotelDetailsHTML}<div class="data-item full-width">${ICONS.check}<div class="data-item-content"><strong>Plan Incluye:</strong><p>${document.getElementById(`regimen-${num}`).value}</p></div></div></div></div></div>`;
-            }
-        });
+// Primero, verificamos si existe la sección de hotel para crear los detalles.
+let mainHotelDetailsHTML = '';
+if (document.getElementById('hotel-1-form-wrapper')) {
+    mainHotelDetailsHTML = `
+        <div class="data-item">${ICONS.destination}<div class="data-item-content"><strong>Destino:</strong><p>${document.getElementById('destino').value}</p></div></div>
+        <div class="data-item">${ICONS.calendar}<div class="data-item-content"><strong>Fechas:</strong><p>${formatDate(document.getElementById('fecha-viaje').value)}</p></div></div>
+        <div class="data-item">${ICONS.moon}<div class="data-item-content"><strong>Noches:</strong><p>${document.getElementById('cantidad-noches').options[document.getElementById('cantidad-noches').selectedIndex].text}</p></div></div>
+        <div class="data-item">${ICONS.bed}<div class="data-item-content"><strong>Habitaciones:</strong><p>${document.getElementById('cantidad-habitaciones').options[document.getElementById('cantidad-habitaciones').selectedIndex].text}</p></div></div>`;
+}
+
+[1, 2].forEach(num => {
+    if (document.getElementById(`hotel-${num}-form-wrapper`)) {
+        let galleryHTML = [1, 2, 3].map(i => pastedImages[`hotel-${num}-foto-${i}`] ? `<img src="${pastedImages[`hotel-${num}-foto-${i}`]}">` : '').join('');
         
-        if (document.getElementById('flights-form-wrapper')) {
-            const departureCity = document.getElementById('ciudad-salida').value;
-            let optionsHTML = [1, 2].map(i => {
-                const wrapper = document.getElementById(`flight-${i}-form-wrapper`);
-                if ((i === 1 || (wrapper && wrapper.style.display !== 'none')) && document.getElementById(`flight-${i}-airline`)) {
-                    const airline = document.getElementById(`flight-${i}-airline`).value; const price = document.getElementById(`flight-${i}-price`).value;
-                    if (airline && price) return `<div class="item-option"><strong>Opción ${i}:</strong> ${airline} <span class="item-price">Desde ${formatCurrency(price)}</span></div>`;
-                } return '';
-            }).join('');
-            confirmationComponentsContainer.innerHTML += `<div class="component-section"><h3>Vuelos Sugeridos</h3>${pastedImages['flight-banner-preview'] ? `<div class="flight-banner"><img src="${pastedImages['flight-banner-preview']}"></div>` : ''}<div id="flight-options-confirm-container"><div class="data-item">${ICONS.plane}<div class="data-item-content"><strong>Desde:</strong><p>${departureCity}</p></div></div>${optionsHTML}</div><p class="item-disclaimer">*Valores por persona, sujetos a cambio.</p></div>`;
-        }
+        confirmationComponentsContainer.innerHTML += `<div class="quote-option-box"><div class="option-header"><h3>Hotel (Opción ${num})</h3><span class="option-price">${formatCurrency(document.getElementById(`valor-total-${num}`).value, document.getElementById(`moneda-${num}`).value)}</span></div><div class="option-body"><h4>${document.getElementById(`hotel-${num}`).value}</h4><div class="photo-gallery">${galleryHTML || '<p>No se añadieron imágenes.</p>'}</div><div class="details-grid">${mainHotelDetailsHTML}<div class="data-item full-width">${ICONS.check}<div class="data-item-content"><strong>Plan Incluye:</strong><p>${document.getElementById(`regimen-${num}`).value}</p></div></div></div></div></div>`;
+    }
+});
         
         ['tours', 'transfers'].forEach(type => {
             if (document.getElementById(`${type}-form-wrapper`)) {
