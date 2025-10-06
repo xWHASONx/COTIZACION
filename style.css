@@ -123,3 +123,10 @@ input[readonly] { background-color: #f0f2f5; cursor: not-allowed; }
     .advisor-contact { flex-direction: row; }
     .action-buttons { flex-direction: column; }
 }
+.inclusions-box p {
+    white-space: pre-wrap; /* <-- ESTA ES LA LÍNEA CLAVE */
+    font-size: 14px;
+    color: var(--c-gray);
+    line-height: 1.6;
+    margin-top: 5px;
+}
