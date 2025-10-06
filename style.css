@@ -130,3 +130,8 @@ input[readonly] { background-color: #f0f2f5; cursor: not-allowed; }
     line-height: 1.6;
     margin-top: 5px;
 }
+.payment-plan-box small {
+    white-space: pre-wrap; /* <-- ASEGÚRATE DE QUE ESTA LÍNEA ESTÉ PRESENTE */
+    font-size: 13px;
+    color: var(--c-gray);
+}
