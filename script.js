@@ -199,86 +199,88 @@ document.addEventListener('DOMContentLoaded', () => {
     function formatDate(dateStr) { if (!dateStr) return 'N/A'; const date = new Date(dateStr + 'T00:00:00'); return date.toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' }); }
     function formatCurrency(value, currency = 'COP') { const number = parseFloat(String(value).replace(/[^0-9.-]+/g, "")); if (isNaN(number) || !String(value).trim()) return ''; return number.toLocaleString(currency === 'COP' ? 'es-CO' : 'en-US', { style: 'currency', currency, minimumFractionDigits: currency === 'COP' ? 0 : 2, maximumFractionDigits: currency === 'COP' ? 0 : 2 }); }
 
-    function populateQuote() {
-        const advisorKey = advisorSelect.value;
-        const advisor = ADVISORS[advisorKey];
-        const advisorWhatsapp = advisorWhatsappInput.value;
-        const clientName = document.getElementById('nombre-completo').value;
-        const quoteNumber = document.getElementById('cotizacion-numero').value;
-        const adults = document.getElementById('adultos').value;
-        const children = document.getElementById('ninos').value;
-        
-        document.getElementById('confirm-intro-text').textContent = `¡Hola, ${clientName.split(' ')[0].toUpperCase()}! He preparado estas opciones para tu próximo viaje.`;
-        
-        const customerBox = document.getElementById('confirm-customer-data-box');
-        customerBox.innerHTML = `
-            <p>Para: <strong>${clientName.toUpperCase()}</strong></p>
-            <p>Pasajeros: <strong>${adults} Adulto${adults > 1 ? 's' : ''}${children > 0 ? ` y ${children} Niño${children > 1 ? 's' : ''}` : ''}</strong></p>
-            <p>Nº Cotización: <strong>${quoteNumber}</strong> | Validez: <strong>${document.getElementById('validez-cupos').value}</strong></p>`;
+    // --- REEMPLAZA TU FUNCIÓN ENTERA CON ESTA ---
 
-        document.getElementById('advisor-photo').src = advisor.photoUrl;
-        document.getElementById('advisor-name').textContent = advisor.name;
-        
-        const whatsappLink = `https://wa.me/${advisorWhatsapp}`;
-        const whatsappLinksIds = ['advisor-whatsapp-btn', 'cta-reservar', 'cta-contactar', 'footer-wpp-link'];
-        whatsappLinksIds.forEach(id => {
-            const el = document.getElementById(id);
-            if(id === 'cta-reservar' || id === 'cta-contactar') {
-                const baseText = id === 'cta-reservar' ? `¡Hola ${advisor.name}! Estoy listo para reservar según la cotización *${quoteNumber}*.` : `Hola ${advisor.name}, tengo una pregunta sobre la cotización *${quoteNumber}*.`;
-                el.href = `${whatsappLink}?text=${encodeURIComponent(baseText)}`;
-            } else {
-                el.href = whatsappLink;
-            }
-        });
+function populateQuote() {
+    const advisorKey = advisorSelect.value;
+    const advisor = ADVISO RS[advisorKey];
+    const advisorWhatsapp = advisorWhatsappInput.value;
+    const clientName = document.getElementById('nombre-completo').value;
+    const quoteNumber = document.getElementById('cotizacion-numero').value;
+    const adults = document.getElementById('adultos').value;
+    const children = document.getElementById('ninos').value;
+    
+    document.getElementById('confirm-intro-text').textContent = `¡Hola, ${clientName.split(' ')[0].toUpperCase()}! He preparado estas opciones para tu próximo viaje.`;
+    
+    const customerBox = document.getElementById('confirm-customer-data-box');
+    customerBox.innerHTML = `
+        <p>Para: <strong>${clientName.toUpperCase()}</strong></p>
+        <p>Pasajeros: <strong>${adults} Adulto${adults > 1 ? 's' : ''}${children > 0 ? ` y ${children} Niño${children > 1 ? 's' : ''}` : ''}</strong></p>
+        <p>Nº Cotización: <strong>${quoteNumber}</strong> | Validez: <strong>${document.getElementById('validez-cupos').value}</strong></p>`;
 
-        confirmationComponentsContainer.innerHTML = '';
+    document.getElementById('advisor-photo').src = advisor.photoUrl;
+    document.getElementById('advisor-name').textContent = advisor.name;
+    
+    const whatsappLink = `https://wa.me/${advisorWhatsapp}`;
+    const whatsappLinksIds = ['advisor-whatsapp-btn', 'cta-reservar', 'cta-contactar', 'footer-wpp-link'];
+    whatsappLinksIds.forEach(id => {
+        const el = document.getElementById(id);
+        if(id === 'cta-reservar' || id === 'cta-contactar') {
+            const baseText = id === 'cta-reservar' ? `¡Hola ${advisor.name}! Estoy listo para reservar según la cotización *${quoteNumber}*.` : `Hola ${advisor.name}, tengo una pregunta sobre la cotización *${quoteNumber}*.`;
+            el.href = `${whatsappLink}?text=${encodeURIComponent(baseText)}`;
+        } else {
+            el.href = whatsappLink;
+        }
+    });
 
-// Primero, verificamos si existe la sección de hotel para crear los detalles.
-let mainHotelDetailsHTML = '';
-if (document.getElementById('hotel-1-form-wrapper')) {
-    mainHotelDetailsHTML = `
-        <div class="data-item">${ICONS.destination}<div class="data-item-content"><strong>Destino:</strong><p>${document.getElementById('destino').value}</p></div></div>
-        <div class="data-item">${ICONS.calendar}<div class="data-item-content"><strong>Fechas:</strong><p>${formatDate(document.getElementById('fecha-viaje').value)}</p></div></div>
-        <div class="data-item">${ICONS.moon}<div class="data-item-content"><strong>Noches:</strong><p>${document.getElementById('cantidad-noches').options[document.getElementById('cantidad-noches').selectedIndex].text}</p></div></div>
-        <div class="data-item">${ICONS.bed}<div class="data-item-content"><strong>Habitaciones:</strong><p>${document.getElementById('cantidad-habitaciones').options[document.getElementById('cantidad-habitaciones').selectedIndex].text}</p></div></div>`;
-}
+    confirmationComponentsContainer.innerHTML = '';
 
-[1, 2].forEach(num => {
-    if (document.getElementById(`hotel-${num}-form-wrapper`)) {
-        let galleryHTML = [1, 2, 3].map(i => pastedImages[`hotel-${num}-foto-${i}`] ? `<img src="${pastedImages[`hotel-${num}-foto-${i}`]}">` : '').join('');
-        
-        confirmationComponentsContainer.innerHTML += `<div class="quote-option-box"><div class="option-header"><h3>Hotel (Opción ${num})</h3><span class="option-price">${formatCurrency(document.getElementById(`valor-total-${num}`).value, document.getElementById(`moneda-${num}`).value)}</span></div><div class="option-body"><h4>${document.getElementById(`hotel-${num}`).value}</h4><div class="photo-gallery">${galleryHTML || '<p>No se añadieron imágenes.</p>'}</div><div class="details-grid">${mainHotelDetailsHTML}<div class="data-item full-width">${ICONS.check}<div class="data-item-content"><strong>Plan Incluye:</strong><p>${REGIMEN_TEMPLATES[document.getElementById(`regimen-${num}`).value] || 'No especificado'}</p></div></div></div></div></div>`;
+    // Primero, verificamos si existe la sección de hotel para crear los detalles.
+    let mainHotelDetailsHTML = '';
+    if (document.getElementById('hotel-1-form-wrapper')) {
+        mainHotelDetailsHTML = `
+            <div class="data-item">${ICONS.destination}<div class="data-item-content"><strong>Destino:</strong><p>${document.getElementById('destino').value}</p></div></div>
+            <div class="data-item">${ICONS.calendar}<div class="data-item-content"><strong>Fechas:</strong><p>${formatDate(document.getElementById('fecha-viaje').value)}</p></div></div>
+            <div class="data-item">${ICONS.moon}<div class="data-item-content"><strong>Noches:</strong><p>${document.getElementById('cantidad-noches').options[document.getElementById('cantidad-noches').selectedIndex].text}</p></div></div>
+            <div class="data-item">${ICONS.bed}<div class="data-item-content"><strong>Habitaciones:</strong><p>${document.getElementById('cantidad-habitaciones').options[document.getElementById('cantidad-habitaciones').selectedIndex].text}</p></div></div>`;
     }
-});
-        
-        ['tours', 'transfers'].forEach(type => {
-            if (document.getElementById(`${type}-form-wrapper`)) {
-                const imgHTML = pastedImages[`${type.slice(0, -1)}-main-photo`] ? `<div class="single-photo-container"><img src="${pastedImages[`${type.slice(0, -1)}-main-photo`]}"></div>` : '';
-                const nameKey = type === 'tours' ? 'name' : 'desc';
-                const desc = document.getElementById(`${type.slice(0, -1)}-1-${nameKey}`).value; const price = document.getElementById(`${type.slice(0, -1)}-1-price`).value;
-                confirmationComponentsContainer.innerHTML += `<div class="component-section"><h3>${type === 'tours' ? 'Tours Opcionales' : 'Traslados'}</h3><div class="option-body">${imgHTML}<div class="item-option">${desc}<span class="item-price">Desde ${formatCurrency(price)}</span></div></div></div>`;
-            }
-        });
 
-        document.getElementById('confirm-pago-reserva').textContent = formatCurrency(document.getElementById('pago-reserva').value);
-        document.getElementById('confirm-pago-segundo').textContent = formatCurrency(document.getElementById('pago-segundo').value);
-        document.getElementById('confirm-fecha-limite').textContent = document.getElementById('fecha-limite-pago').value;
-        document.getElementById('confirm-no-incluye').textContent = document.getElementById('no-incluye').value;
+    [1, 2].forEach(num => {
+        if (document.getElementById(`hotel-${num}-form-wrapper`)) {
+            let galleryHTML = [1, 2, 3].map(i => pastedImages[`hotel-${num}-foto-${i}`] ? `<img src="${pastedImages[`hotel-${num}-foto-${i}`]}">` : '').join('');
+            
+            confirmationComponentsContainer.innerHTML += `<div class="quote-option-box"><div class="option-header"><h3>Hotel (Opción ${num})</h3><span class="option-price">${formatCurrency(document.getElementById(`valor-total-${num}`).value, document.getElementById(`moneda-${num}`).value)}</span></div><div class="option-body"><h4>${document.getElementById(`hotel-${num}`).value}</h4><div class="photo-gallery">${galleryHTML || '<p>No se añadieron imágenes.</p>'}</div><div class="details-grid">${mainHotelDetailsHTML}<div class="data-item full-width">${ICONS.check}<div class="data-item-content"><strong>Plan Incluye:</strong><p>${REGIMEN_TEMPLATES[document.getElementById(`regimen-${num}`).value] || 'No especificado'}</p></div></div></div></div></div>`;
+        }
+    });
+    
+    ['flights', 'tours', 'transfers'].forEach(type => {
+        if (document.getElementById(`${type}-form-wrapper`)) {
+            const imgHTML = pastedImages[`${type.slice(0, -1)}-main-photo`] ? `<div class="single-photo-container"><img src="${pastedImages[`${type.slice(0, -1)}-main-photo`]}"></div>` : '';
+            const nameKey = type === 'tours' ? 'name' : 'desc';
+            const desc = document.getElementById(`${type.slice(0, -1)}-1-${nameKey}`).value; const price = document.getElementById(`${type.slice(0, -1)}-1-price`).value;
+            confirmationComponentsContainer.innerHTML += `<div class="component-section"><h3>${type === 'tours' ? 'Tours Opcionales' : 'Traslados'}</h3><div class="option-body">${imgHTML}<div class="item-option">${desc}<span class="item-price">Desde ${formatCurrency(price)}</span></div></div></div>`;
+        }
+    });
 
-        // Lógica para T&C dinámicos
-        let termsHTML = '';
+    document.getElementById('confirm-pago-reserva').textContent = formatCurrency(document.getElementById('pago-reserva').value);
+    document.getElementById('confirm-pago-segundo').textContent = formatCurrency(document.getElementById('pago-segundo').value);
+    document.getElementById('confirm-fecha-limite').textContent = document.getElementById('fecha-limite-pago').value;
+    document.getElementById('confirm-no-incluye').textContent = document.getElementById('no-incluye').value;
+
+    // Lógica para T&C dinámicos
+    let termsHTML = '';
     if (document.getElementById('hotel-1-form-wrapper')) termsHTML += TERMS_AND_CONDITIONS.hotels;
     if (document.getElementById('flights-form-wrapper')) termsHTML += TERMS_AND_CONDITIONS.flights;
     if (document.getElementById('transfers-form-wrapper')) termsHTML += TERMS_AND_CONDITIONS.transfers;
-        
-        const termsContainer = document.getElementById('terms-section-confirm');
-        if (termsHTML) {
-            document.getElementById('confirm-terms-content').innerHTML = termsHTML;
-            termsContainer.style.display = 'block';
-        } else {
-            termsContainer.style.display = 'none';
-        }
+    
+    const termsContainer = document.getElementById('terms-section-confirm');
+    if (termsHTML) {
+        document.getElementById('confirm-terms-content').innerHTML = termsHTML;
+        termsContainer.style.display = 'block';
+    } else {
+        termsContainer.style.display = 'none';
     }
+}
 
     async function processQuote() {
         toggleLoader(true, "Generando PDF...");
