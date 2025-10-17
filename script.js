@@ -173,7 +173,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function populateMainDropdowns() {
         const adultsSelect = document.getElementById('adultos'); const ninosSelect = document.getElementById('ninos');
-        for (let i = 1; i <= 20; i++) { const option = new Option(i, i); if (i === 2) option.selected = true; adultsSelect.add(option); }
+        for (let i = 1; i <= 30; i++) { const option = new Option(i, i); if (i === 2) option.selected = true; adultsSelect.add(option); }
         for (let i = 0; i <= 10; i++) { const text = i === 0 ? '0' : (i === 1 ? '1 niño' : `${i} niños`); ninosSelect.add(new Option(text, i)); }
     }
     function initializeForm() {
