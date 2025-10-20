@@ -67,6 +67,7 @@ const REGIMEN_TEMPLATES = {
 };
 
 let pastedImages = {};
+let hotelCounter = 0;
 
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('pre-reserva-form');
@@ -107,24 +108,79 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function addSection(sectionKey) {
+    if (sectionKey === 'hotel') {
+        hotelCounter++;
+        const template = document.getElementById('template-hotel');
+        if (!template) return;
+
+        // Clonamos el contenido y lo convertimos a un string para reemplazar los placeholders
+        let cloneHtml = template.innerHTML;
+        cloneHtml = cloneHtml.replace(/PLACEHOLDER/g, hotelCounter);
+
+        // Creamos un div temporal para convertir el string de vuelta a nodos HTML
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = cloneHtml;
+        const cloneNode = tempDiv.firstElementChild; // Obtenemos el nodo principal
+
+        dynamicComponentsContainer.appendChild(cloneNode);
+        
+        // Llenamos los dropdowns de noches y habitaciones en el nuevo hotel
+        const nightsSelect = document.getElementById(`cantidad-noches-${hotelCounter}`);
+        const roomsSelect = document.getElementById(`cantidad-habitaciones-${hotelCounter}`);
+        for (let i = 1; i <= 30; i++) {
+            const option = new Option(`${i} noche${i > 1 ? 's' : ''}`, i);
+            if (i === 4) option.selected = true;
+            nightsSelect.add(option);
+        }
+        for (let i = 1; i <= 10; i++) {
+            const option = new Option(`${i} habitación${i > 1 ? 'es' : ''}`, i);
+            if (i === 1) option.selected = true;
+            roomsSelect.add(option);
+        }
+        
+        addEventListenersToSection(cloneNode);
+        
+        // Ocultamos el botón "+ Hotel" principal si es el primer hotel
+        if (hotelCounter === 1) {
+            document.querySelector(`.add-section-btn[data-section="hotel"]`).style.display = 'none';
+        }
+        // Ocultamos el botón de añadir del hotel anterior
+        if(hotelCounter > 1) {
+            document.querySelector(`#hotel-form-wrapper-${hotelCounter - 1} .add-subsection-btn`).style.display = 'none';
+        }
+
+    } else { // Lógica original para otras secciones (flights, tours, etc.)
         const template = document.getElementById(`template-${sectionKey}`);
         if (!template) return;
         const clone = template.content.cloneNode(true);
         dynamicComponentsContainer.appendChild(clone);
-        if (sectionKey === 'hotel-1') populateHotelDropdowns();
         addEventListenersToSection(dynamicComponentsContainer.querySelector(`#${sectionKey}-form-wrapper`));
         document.querySelector(`.add-section-btn[data-section="${sectionKey}"]`).style.display = 'none';
         updateRequiredFields(sectionKey, true);
     }
+}
     function removeSection(sectionKey) {
-        const wrapper = document.getElementById(`${sectionKey}-form-wrapper`);
-        if (wrapper) {
-            if(sectionKey === 'hotel-1' && document.getElementById('hotel-2-form-wrapper')) removeSection('hotel-2');
-            wrapper.remove();
+    const wrapper = document.getElementById(`${sectionKey.split('-')[0]}-form-wrapper-${sectionKey.split('-')[1]}`);
+    if (wrapper) {
+        wrapper.remove();
+        // Si eliminamos todos los hoteles, volvemos a mostrar el botón principal
+        if (!document.querySelector('.hotel-form-wrapper')) {
+            document.querySelector(`.add-section-btn[data-section="hotel"]`).style.display = 'block';
+            hotelCounter = 0; // Reseteamos el contador
+        } else {
+            // Mostramos el botón de añadir en el último hotel que quede
+            const lastHotel = Array.from(document.querySelectorAll('.hotel-form-wrapper')).pop();
+            lastHotel.querySelector('.add-subsection-btn').style.display = 'block';
+        }
+    } else { // Lógica original para otras secciones
+         const originalWrapper = document.getElementById(`${sectionKey}-form-wrapper`);
+         if (originalWrapper) {
+            originalWrapper.remove();
             document.querySelector(`.add-section-btn[data-section="${sectionKey}"]`).style.display = 'block';
             updateRequiredFields(sectionKey, false);
-        }
+         }
     }
+}
     function addSubSection(subSectionKey) {
         if(subSectionKey === 'hotel-2'){ addSection(subSectionKey); document.querySelector('.add-subsection-btn[data-section="hotel-2"]').style.display = 'none'; return; }
         const wrapper = document.getElementById(`${subSectionKey}-form-wrapper`);
@@ -232,6 +288,73 @@ document.addEventListener('DOMContentLoaded', () => {
             el.href = whatsappLink;
         }
     });
+
+    confirmationComponentsContainer.innerHTML = '';
+    
+    const hotelForms = document.querySelectorAll('.hotel-form-wrapper');
+    hotelForms.forEach((form, index) => {
+        const num = form.id.match(/\d+/)[0];
+        
+        let galleryHTML = [1, 2, 3].map(i => pastedImages[`hotel-${num}-foto-${i}`] ? `<img src="${pastedImages[`hotel-${num}-foto-${i}`]}">` : '').join('');
+        
+        let hotelDetailsHTML = `
+            <div class="data-item">${ICONS.destination}<div class="data-item-content"><strong>Destino:</strong><p>${document.getElementById(`destino-${num}`).value}</p></div></div>
+            <div class="data-item">${ICONS.calendar}<div class="data-item-content"><strong>Fechas:</strong><p>${formatDate(document.getElementById(`fecha-viaje-${num}`).value)}</p></div></div>
+            <div class="data-item">${ICONS.moon}<div class="data-item-content"><strong>Noches:</strong><p>${document.getElementById(`cantidad-noches-${num}`).options[document.getElementById(`cantidad-noches-${num}`).selectedIndex].text}</p></div></div>
+            <div class.data-item">${ICONS.bed}<div class="data-item-content"><strong>Habitaciones:</strong><p>${document.getElementById(`cantidad-habitaciones-${num}`).options[document.getElementById(`cantidad-habitaciones-${num}`).selectedIndex].text}</p></div></div>`;
+            
+        confirmationComponentsContainer.innerHTML += `<div class="quote-option-box">
+            <div class="option-header"><h3>Hotel ${index + 1}</h3><span class="option-price">${formatCurrency(document.getElementById(`valor-total-${num}`).value, document.getElementById(`moneda-${num}`).value)}</span></div>
+            <div class="option-body">
+                <h4>${document.getElementById(`hotel-${num}`).value}</h4>
+                <div class="photo-gallery">${galleryHTML || '<p>No se añadieron imágenes.</p>'}</div>
+                <div class="details-grid">
+                    ${hotelDetailsHTML}
+                    <div class="data-item full-width">${ICONS.check}<div class="data-item-content"><strong>Plan Incluye:</strong><p>${REGIMEN_TEMPLATES[document.getElementById(`regimen-${num}`).value] || 'No especificado'}</p></div></div>
+                </div>
+            </div>
+        </div>`;
+    });
+
+    if (document.getElementById('flights-form-wrapper')) {
+        const departureCity = document.getElementById('ciudad-salida').value;
+        let optionsHTML = [1, 2].map(i => {
+            const wrapper = document.getElementById(`flight-${i}-form-wrapper`);
+            if ((i === 1 || (wrapper && wrapper.style.display !== 'none')) && document.getElementById(`flight-${i}-airline`)) {
+                const airline = document.getElementById(`flight-${i}-airline`).value; const price = document.getElementById(`flight-${i}-price`).value;
+                if (airline && price) return `<div class="item-option"><strong>Opción ${i}:</strong> ${airline} <span class="item-price">Desde ${formatCurrency(price)}</span></div>`;
+            } return '';
+        }).join('');
+        confirmationComponentsContainer.innerHTML += `<div class="component-section"><h3>Vuelos Sugeridos</h3>${pastedImages['flight-banner-preview'] ? `<div class="flight-banner"><img src="${pastedImages['flight-banner-preview']}"></div>` : ''}<div id="flight-options-confirm-container"><div class="data-item">${ICONS.plane}<div class="data-item-content"><strong>Desde:</strong><p>${departureCity}</p></div></div>${optionsHTML}</div><p class="item-disclaimer">*Valores por persona, sujetos a cambio.</p></div>`;
+    }
+
+    ['tours', 'transfers'].forEach(type => {
+        if (document.getElementById(`${type}-form-wrapper`)) {
+            const imgHTML = pastedImages[`${type.slice(0, -1)}-main-photo`] ? `<div class="single-photo-container"><img src="${pastedImages[`${type.slice(0, -1)}-main-photo`]}"></div>` : '';
+            const nameKey = type === 'tours' ? 'name' : 'desc';
+            const desc = document.getElementById(`${type.slice(0, -1)}-1-${nameKey}`).value; const price = document.getElementById(`${type.slice(0, -1)}-1-price`).value;
+            confirmationComponentsContainer.innerHTML += `<div class="component-section"><h3>${type === 'tours' ? 'Tours Opcionales' : 'Traslados'}</h3><div class="option-body">${imgHTML}<div class="item-option">${desc}<span class="item-price">Desde ${formatCurrency(price)}</span></div></div></div>`;
+        }
+    });
+
+    document.getElementById('confirm-pago-reserva').textContent = formatCurrency(document.getElementById('pago-reserva').value);
+    document.getElementById('confirm-pago-segundo').textContent = formatCurrency(document.getElementById('pago-segundo').value);
+    document.getElementById('confirm-fecha-limite').textContent = document.getElementById('fecha-limite-pago').value;
+    document.getElementById('confirm-no-incluye').textContent = document.getElementById('no-incluye').value;
+
+    let termsHTML = '';
+    if (document.querySelector('.hotel-form-wrapper')) termsHTML += TERMS_AND_CONDITIONS.hotels;
+    if (document.getElementById('flights-form-wrapper')) termsHTML += TERMS_AND_CONDITIONS.flights;
+    if (document.getElementById('transfers-form-wrapper')) termsHTML += TERMS_AND_CONDITIONS.transfers;
+    
+    const termsContainer = document.getElementById('terms-section-confirm');
+    if (termsHTML) {
+        document.getElementById('confirm-terms-content').innerHTML = termsHTML;
+        termsContainer.style.display = 'block';
+    } else {
+        termsContainer.style.display = 'none';
+    }
+}
 
     confirmationComponentsContainer.innerHTML = '';
     
