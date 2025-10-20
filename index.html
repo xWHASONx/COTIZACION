@@ -39,7 +39,7 @@
 
                 <fieldset class="form-fieldset"><legend>2. Componentes de la Cotización</legend>
                     <div class="add-buttons-container">
-                        <button type="button" class="add-section-btn" data-section="hotel-1">+ Hotel</button>
+                        <button type="button" class="add-section-btn" data-section="hotel">+ Hotel</button>
                         <button type="button" class="add-section-btn" data-section="flights">+ Vuelos</button>
                         <button type="button" class="add-section-btn" data-section="tours">+ Tours</button>
                         <button type="button" class="add-section-btn" data-section="transfers">+ Traslados</button>
@@ -61,40 +61,29 @@
         </section>
 
         <!-- TEMPLATES -->
-        <template id="template-hotel-1">
-            <div id="hotel-1-form-wrapper" class="dynamic-section-wrapper"><fieldset class="form-fieldset">
-                <button type="button" class="remove-section-btn" data-section="hotel-1">&times;</button><legend>Hotel (Opción 1)</legend>
-                <div class="form-grid">
-                    <div class="form-group full-width"><label for="destino">Destino (Ciudad)</label><input type="text" id="destino" required></div>
-                    <div class="form-group full-width"><label for="hotel-1">Nombre del Hotel</label><input type="text" id="hotel-1" required></div>
-                    <div class="form-group full-width"><label for="regimen-1">Régimen</label>     <select id="regimen-1">         <option value="todo_incluido" selected>Todo incluido</option>         <option value="pension_completa">Pensión Completa</option>         <option value="media_pension">Media Pensión</option>         <option value="desayuno">Hotel y desayuno</option>         <option value="solo_hotel">Solo hotel</option>     </select> </div>
-                    <div class="form-group"><label for="valor-total-1">Valor Total</label><div class="currency-group"><input type="text" id="valor-total-1" inputmode="numeric" required><select id="moneda-1"><option selected>COP</option><option>USD</option></select></div></div>
-                    <div class="form-group"><label for="fecha-viaje">Fecha de Check-in</label><input type="date" id="fecha-viaje" required></div>
-                    <div class="form-group"><label for="cantidad-noches">Noches</label><select id="cantidad-noches"></select></div>
-                    <div class="form-group"><label for="cantidad-habitaciones">Habitaciones</label><select id="cantidad-habitaciones"></select></div>
-                    <div class="form-group full-width"><label>Galería de Fotos (Pegar hasta 3)</label><div class="gallery-paste-areas">
-                        <div class="paste-area" data-img-id="hotel-1-foto-1"><p>Pegar Foto 1</p><img src="" style="display:none;"></div>
-                        <div class="paste-area" data-img-id="hotel-1-foto-2"><p>Pegar Foto 2</p><img src="" style="display:none;"></div>
-                        <div class="paste-area" data-img-id="hotel-1-foto-3"><p>Pegar Foto 3</p><img src="" style="display:none;"></div>
-                    </div></div>
-                </div><button type="button" class="add-subsection-btn" data-section="hotel-2">+ Añadir 2do Hotel</button>
-            </fieldset></div>
-        </template>
-        <template id="template-hotel-2">
-             <div id="hotel-2-form-wrapper" class="dynamic-section-wrapper"><fieldset class="form-fieldset">
-                <button type="button" class="remove-section-btn" data-section="hotel-2">&times;</button><legend>Hotel (Opción 2)</legend>
-                <div class="form-grid">
-                    <div class="form-group full-width"><label for="hotel-2">Nombre del Hotel</label><input type="text" id="hotel-2" required></div>
-                    <div class="form-group full-width"><label for="regimen-2">Régimen</label>     <select id="regimen-2">         <option value="todo_incluido" selected>Todo incluido</option>         <option value="pension_completa">Pensión Completa</option>         <option value="media_pension">Media Pensión</option>         <option value="desayuno">Hotel y desayuno</option>         <option value="solo_hotel">Solo hotel</option>     </select> </div>
-                    <div class="form-group"><label for="valor-total-2">Valor Total</label><div class="currency-group"><input type="text" id="valor-total-2" inputmode="numeric" required><select id="moneda-2"><option selected>COP</option><option>USD</option></select></div></div>
-                    <div class="form-group full-width"><label>Galería de Fotos (Pegar hasta 3)</label><div class="gallery-paste-areas">
-                        <div class="paste-area" data-img-id="hotel-2-foto-1"><p>Pegar Foto 1</p><img src="" style="display:none;"></div>
-                        <div class="paste-area" data-img-id="hotel-2-foto-2"><p>Pegar Foto 2</p><img src="" style="display:none;"></div>
-                        <div class="paste-area" data-img-id="hotel-2-foto-3"><p>Pegar Foto 3</p><img src="" style="display:none;"></div>
-                    </div></div>
-                </div>
-            </fieldset></div>
-        </template>
+        <template id="template-hotel">
+    <div id="hotel-form-wrapper-PLACEHOLDER" class="dynamic-section-wrapper hotel-form-wrapper">
+        <fieldset class="form-fieldset">
+            <button type="button" class="remove-section-btn" data-section="hotel-PLACEHOLDER">&times;</button>
+            <legend>Hotel (Opción PLACEHOLDER)</legend>
+            <div class="form-grid">
+                <div class="form-group full-width"><label for="destino-PLACEHOLDER">Destino (Ciudad)</label><input type="text" id="destino-PLACEHOLDER" required></div>
+                <div class="form-group full-width"><label for="hotel-PLACEHOLDER">Nombre del Hotel</label><input type="text" id="hotel-PLACEHOLDER" required></div>
+                <div class="form-group full-width"><label for="regimen-PLACEHOLDER">Régimen</label><select id="regimen-PLACEHOLDER"><option value="todo_incluido" selected>Todo incluido</option><option value="pension_completa">Pensión Completa</option><option value="media_pension">Media Pensión</option><option value="desayuno">Hotel y desayuno</option><option value="solo_hotel">Solo hotel</option></select></div>
+                <div class="form-group"><label for="valor-total-PLACEHOLDER">Valor Total</label><div class="currency-group"><input type="text" id="valor-total-PLACEHOLDER" inputmode="numeric" required><select id="moneda-PLACEHOLDER"><option selected>COP</option><option>USD</option></select></div></div>
+                <div class="form-group"><label for="fecha-viaje-PLACEHOLDER">Fecha de Check-in</label><input type="date" id="fecha-viaje-PLACEHOLDER" required></div>
+                <div class="form-group"><label for="cantidad-noches-PLACEHOLDER">Noches</label><select id="cantidad-noches-PLACEHOLDER"></select></div>
+                <div class="form-group"><label for="cantidad-habitaciones-PLACEHOLDER">Habitaciones</label><select id="cantidad-habitaciones-PLACEHOLDER"></select></div>
+                <div class="form-group full-width"><label>Galería de Fotos (Pegar hasta 3)</label><div class="gallery-paste-areas">
+                    <div class="paste-area" data-img-id="hotel-PLACEHOLDER-foto-1"><p>Pegar Foto 1</p><img src="" style="display:none;"></div>
+                    <div class="paste-area" data-img-id="hotel-PLACEHOLDER-foto-2"><p>Pegar Foto 2</p><img src="" style="display:none;"></div>
+                    <div class="paste-area" data-img-id="hotel-PLACEHOLDER-foto-3"><p>Pegar Foto 3</p><img src="" style="display:none;"></div>
+                </div></div>
+            </div>
+            <button type="button" class="add-subsection-btn" data-section="hotel">+ Añadir Otro Hotel</button>
+        </fieldset>
+    </div>
+</template>
         <template id="template-flights">
             <div id="flights-form-wrapper" class="dynamic-section-wrapper"><fieldset class="form-fieldset">
                 <button type="button" class="remove-section-btn" data-section="flights">&times;</button><legend>Vuelos</legend>
