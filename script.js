@@ -1,7 +1,3 @@
-// --- CÓDIGO COMPLETO Y CORREGIDO PARA script.js ---
-
-const ACCESS_PASSWORD = 'Carrera 35, Av. Las Palmas #15b 143';
-
 // --- 1. CONFIGURACIÓN GLOBAL ---
 const ADVISORS = {
     'katherine_rueda': { name: 'Katherine Rueda', photoUrl: 'https://i.imgur.com/21GKFPV.png', defaultWhatsapp: '573249450254' },
@@ -68,22 +64,12 @@ let pastedImages = {};
 let hotelCounter = 0;
 
 document.addEventListener('DOMContentLoaded', () => {
-    const loginOverlay = document.getElementById('login-overlay');
-const loginForm = document.getElementById('login-form');
-const passwordInput = document.getElementById('password-input');
-const loginError = document.getElementById('login-error');
-const mainWrapper = document.querySelector('.wrapper');
+    // ===== INICIO: LÓGICA DE ACCESO =====
+const ACCESS_PASSWORD = 'tu_nueva_contraseña'; // <-- CAMBIA ESTO
 
-loginForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    if (passwordInput.value === ACCESS_PASSWORD) {
-        loginOverlay.style.display = 'none';
-        mainWrapper.style.display = 'block';
-    } else {
-        loginError.style.display = 'block';
-        passwordInput.value = '';
-    }
-});
+function initializeApp() {
+    // Esta función contendrá toda la lógica original de la app
+// =====================================
     const form = document.getElementById('pre-reserva-form');
     const formTitleSection = document.getElementById('form-title-section');
     const formSection = document.getElementById('form-section');
@@ -410,4 +396,24 @@ loginForm.addEventListener('submit', (e) => {
     newQuoteBtn.addEventListener('click', () => { confirmationSection.style.display = 'none'; formTitleSection.style.display = 'block'; formSection.style.display = 'block'; initializeForm(); window.scrollTo(0, 0); });
     
     initializeForm();
+} // <-- AÑADE ESTA LLAVE DE CIERRE PARA LA FUNCIÓN initializeApp
+
+// ===== LÓGICA DE LOGIN (CORREGIDA) =====
+const loginOverlay = document.getElementById('login-overlay');
+const loginForm = document.getElementById('login-form');
+const passwordInput = document.getElementById('password-input');
+const loginError = document.getElementById('login-error');
+
+loginForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (passwordInput.value === ACCESS_PASSWORD) {
+        loginOverlay.style.display = 'none';
+        document.querySelector('.wrapper').style.display = 'block';
+        initializeApp(); // <-- ¡AQUÍ ESTÁ LA MAGIA! LLAMAMOS A LA APP SOLO DESPUÉS DEL LOGIN
+    } else {
+        loginError.style.display = 'block';
+        passwordInput.value = '';
+    }
+});
+// =======================================
 });
