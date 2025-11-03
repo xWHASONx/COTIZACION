@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // --- 1. CONFIGURACIÓN GLOBAL ---
         const ADVISORS = {
     'katherine_rueda': { name: 'Katherine Rueda', photoUrl: 'https://i.imgur.com/21GKFPV.png', defaultWhatsapp: '573249450254' },
-    'Daniela_Ardila ': { name: 'Daniela Ardila', photoUrl: 'https://i.imgur.com/08PClCm.jpeg', defaultWhatsapp: '573213349780' },
+    'Daniela_Ardila': { name: 'Daniela Ardila', photoUrl: 'https://i.imgur.com/08PClCm.jpeg', defaultWhatsapp: '573213349780' },
     'valentina_herrera': { name: 'Valentina Herrera', photoUrl: 'https://i.imgur.com/MHGZASr.png', defaultWhatsapp: '573184188621' },
     'maryory_gonzalez': { name: 'Maryory Gonzalez', photoUrl: 'https://i.imgur.com/G9nHKlg.jpeg', defaultWhatsapp: '573189150322' },
     'karen_giraldo': { name: 'Karen Giraldo', photoUrl: 'https://i.imgur.com/Amn1Wtb.jpeg', defaultWhatsapp: '573216839241' },
@@ -408,7 +408,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- MANEJADOR DEL LOGIN ---
     loginForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        if (passwordInput.value === ACCESS_PASSWORD) {
+        if (passwordInput.value.trim() === ACCESS_PASSWORD) {
             loginOverlay.style.display = 'none';
             mainWrapper.style.display = 'block';
             initializeApp(); // Inicia la aplicación solo si la contraseña es correcta
