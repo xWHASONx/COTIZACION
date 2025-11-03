@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     // --- CONFIGURACIÓN DE ACCESO ---
-    const ACCESS_PASSWORD = 'hola'; // <-- CAMBIA ESTO
+    const ACCESS_PASSWORD = 'Carrera 35, Av. Las Palmas #15b 143'; // <-- CAMBIA ESTO
 
     // --- ELEMENTOS DEL LOGIN ---
     const loginOverlay = document.getElementById('login-overlay');
