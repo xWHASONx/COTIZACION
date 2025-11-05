@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
     'karen_giraldo': { name: 'Karen Giraldo', photoUrl: 'https://i.imgur.com/Amn1Wtb.jpeg', defaultWhatsapp: '573216839241' },
     'Alejandro_Jimes': { name: 'Alejandro Jaimes', photoUrl: 'https://i.imgur.com/1RuwHv0.jpeg', defaultWhatsapp: '573012033720' },
     'sarah_esteves': { name: 'Sarah George Esteves', photoUrl: 'https://i.imgur.com/mt1UKBS.jpeg', defaultWhatsapp: '573226817507' },
+    'Daniela_Cardona': { name: 'Daniela Cardona', photoUrl: 'https://i.imgur.com/x2yIHkL.png', defaultWhatsapp: '573226817507' },
     'Carolina_Muñoz': { name: 'Carolina Muñoz', photoUrl: 'https://i.imgur.com/sXnamkJ.jpeg', defaultWhatsapp: '573113855927' }
         };
 
